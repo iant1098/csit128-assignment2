@@ -1,0 +1,254 @@
+<html>
+    <head>
+        <style>
+            table, th, td{
+                border: 1px solid black;
+                border-collapse: collapse;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            th{
+                font-size: 30;
+            }
+
+            /* First two rows (title + player name) */
+            .firstTwoRows{
+                background-color: #f7caac;
+                height: 50px;
+            }
+            /* Input box for name*/
+            #playerName{
+                height: 30px;
+                margin: 5 0 10 8;
+            }
+            /* The label "Name: " beside the input*/
+            #name{
+                font-weight: bold;
+                margin-left: 7;
+            }
+
+            /* Row 3 Chosen character + Current Score row */
+            #row-3{
+                height: 45px;
+            }
+            #row-3 td{
+                padding: 10;
+            }
+            /* left and middle cell */
+            #row-3 .row-3-col-1-2{
+                background-color: #deeaf6;
+            }
+            /* most right cell */
+            #row-3 .row-3-col-3{
+                background-color: #fff2cc;
+                font-size: larger;
+                text-align: center;
+            }
+            /* Current score number styling */
+            #row-3 .row-3-col-3 #currentScore{
+                color: red;
+                font-weight: bold;
+                font-size: 25;
+            }
+
+            /* Row 4 Start and Stop button */
+            #row-4{
+                background-color: #99ff99;
+                text-align: center;
+                height: 40px;
+            }
+            #row-4 #startButton{
+                margin-right: 200px;
+            }
+
+            /* Row 5 Three clickable characters */
+            #row-5{
+                height: 80px;
+                font-size: 40;
+                text-align: center;
+            }
+            #row-5 #firstCharacter{
+                color: #c59a1e;
+            }
+            #row-5 #secondCharacter{
+                color: blue;
+            }
+            #row-5 #thirdCharacter{
+                color: #5d8841;
+            }
+
+            /* Row 6 Display highest score */
+            #row-6{
+                color: #ff1716;
+                height: 60px;
+                text-align:left;
+                text-indent: 10px;
+                font-size: x-large;
+            }
+            #row-6 #highestScore{
+                margin-left: 40px;
+            }
+
+
+            #firstCharacter, #secondCharacter, #thirdCharacter {
+                cursor: pointer;
+            }
+
+        </style>
+    </head>
+    <body>
+        <table width="50%" align="center">
+            <tr class="firstTwoRows">
+                <th colspan="3">
+                    Part 2: Game
+                </th>
+            </tr>
+            <tr class="firstTwoRows" >
+                <td colspan="3">
+                    <span id="name">Name:</span>
+                    <input type="text" id ="playerName" name="name" size="35" onkeyup="checkNameFilled()" >
+                </td>
+            </tr>
+
+            <tr id="row-3">
+                <td class="row-3-col-1-2" width="33%">
+                    <b>Your chosen character:</b>
+                </td>
+                <td class="row-3-col-1-2" width="33%">
+                    <select id="chosenCharacter" name="chosenCharacter" disabled>
+                        <option value="B">B</option>
+                        <option value="F">F</option>
+                        <option value="$">$</option>
+                        <option value="%">%</option>
+                        <option value="3">3</option>
+                        <option value="9">9</option>
+                    </select>
+                </td>
+                <td class="row-3-col-3" width="33%">
+                    <b>Current Score:</b>
+                    <span id="currentScore">0</span>
+                </td> 
+            </tr>
+
+            <tr id="row-4">
+                <td colspan="3">
+                    <button id="startButton" type="button" disabled>Start</button>
+                    <button id="stopButton" type="button" disabled>Stop</button>
+                </td>
+            </tr>
+
+            <tr id="row-5">
+                <td>
+                    <div class="clickables" id="firstCharacter"></div>
+                </td>
+                <td>
+                    <div class="clickables" id="secondCharacter"></div>
+                </td>
+                <td>
+                    <div class="clickables" id="thirdCharacter"></div>
+                </td>
+            </tr>
+
+            <tr id="row-6">
+                <td id="highestScore" colspan="3">
+                    Highest:
+                    <span id="highScore"></span>
+                    <span id="highScoreName"></span>
+                </td>
+            </tr>
+        </table>
+
+        <script>
+            var playerName = document.getElementById("playerName")
+
+            var chosenCharacter = document.getElementById("chosenCharacter");
+            
+            var startButton = document.getElementById("startButton");
+            var stopButton = document.getElementById("stopButton");
+
+            var charactersArray = ["B", "F", "$", "%", "3", "9"];
+            var firstCharacter = document.getElementById("firstCharacter");
+            var secondCharacter = document.getElementById("secondCharacter");
+            var thirdCharacter = document.getElementById("thirdCharacter");
+            var timer = null;
+
+            var currentScore = document.getElementById("currentScore");
+            var currentCounter = 0;
+            var check = false;
+
+            var highScore = document.getElementById("highScore");
+            var highScoreName = document.getElementById("highScoreName");
+            var topScore = 0
+
+            /* The start button, stop button and chosen character box stays disabled when name box is empty*/
+            function checkNameFilled(){
+                var playerName = document.getElementById("playerName").value
+                if (playerName.trim() ==""){
+                    startButton.disabled = true;
+                    stopButton.disabled = true;
+                    chosenCharacter.disabled = true;
+                }
+                else{
+                    startButton.disabled = false;
+                    stopButton.disabled = false;
+                    chosenCharacter.disabled = false;
+                }
+            }
+
+            /* Three random characters from an array of six characters without repeating characters*/
+            function generateCharacters(){
+                check = true;
+                tempArray = charactersArray.slice();
+                var first = Math.floor(Math.random() * tempArray.length);
+                firstCharacter.textContent = tempArray[first];
+                tempArray.splice(first, 1);
+                
+                var second = Math.floor(Math.random() * tempArray.length);
+                secondCharacter.textContent = tempArray[second];
+                tempArray.splice(second, 1);
+                
+                var third = Math.floor(Math.random() * tempArray.length);
+                thirdCharacter.textContent = tempArray[third];
+            }
+
+            /* Start and Stop button */
+            startButton.addEventListener("click", function(){
+                if (timer === null){
+                    currentScore.textContent = currentCounter;
+                    generateCharacters();
+                    timer = setInterval(generateCharacters, 2000);
+                    chosenCharacter.disabled = true;
+                }
+            })
+            stopButton.addEventListener("click", function(){
+                clearInterval(timer);
+                timer = null;
+                chosenCharacter.disabled = false;
+                check = false;
+                if(currentCounter > topScore){
+                    topScore = currentCounter;
+                    highScore.textContent = currentCounter;
+                    highScoreName.textContent = playerName.value;
+                }
+
+                currentCounter = 0;
+            })
+
+            /* All three character click behaviour */
+            function currentScoreCounter(character){
+                if (check == true){
+                    if(character.textContent == chosenCharacter.value){
+                        currentCounter += 4;
+                    }
+                    else{
+                        currentCounter -= 3;
+                    }
+                    currentScore.textContent = currentCounter;
+                    check = false;
+                }
+            }
+            firstCharacter.addEventListener("click", function(){currentScoreCounter(firstCharacter)})
+            secondCharacter.addEventListener("click", function(){currentScoreCounter(secondCharacter)})
+            thirdCharacter.addEventListener("click", function(){currentScoreCounter(thirdCharacter)})
+        </script>
+    </body>
+</html>
