@@ -1,12 +1,25 @@
 <html>
     <head>
         <style>
-            table, th, td{
+            /* Part 1 */
+            table#firstPart th {
+                background-color: #DEEAF6;
+                padding: 10px;
+                font-size: larger;
+                align-items: center;
+            }
+            
+            table#firstPart td {
+                padding: 10px;
+            }
+
+            /* Part 2 */
+            table#secondPart, table#secondPart th, td{
                 border: 1px solid black;
                 border-collapse: collapse;
                 font-family: Arial, Helvetica, sans-serif;
             }
-            th{
+            table#secondPart th{
                 font-size: 30px;
             }
 
@@ -96,7 +109,35 @@
         </style>
     </head>
     <body>
-        <table width="50%" align="center">
+        <!-- part 1 -->
+        <table id="firstPart" border="1" width="60%" align="center">
+            <tr>
+                <th class="part1-th" colspan="3">CSIT128: Assignment 1</th>
+                <th class="part1-th">Group G6T16</th>
+            </tr>
+            <tr>
+                <td rowspan="3" width="20%">Student Number /<br>
+                    Name / Email</td>
+                <td>1035617</td>
+                <td width="33%">Chee Wei Chong</td>
+                <td width="28%">wcchee001@mymail.sim.edu.sg</td>
+            </tr>
+            <tr>
+                <td>1036646</td>
+                <td>Lin Bohui</td>
+                <td>blin010@mymail.sim.edu.sg</td>
+            </tr>
+            <tr>
+                <td>1035988</td>
+                <td>Ian Tan Yi Cher</td>
+                <td>iyctan001@mymail.sim.edu.sg</td>
+            </tr>
+        </table>
+        <br><br><br>
+        
+        
+        <!-- Part 2 -->
+        <table id="secondPart" width="50%" align="center">
             <tr class="firstTwoRows">
                 <th colspan="3">
                     Part 2: Game

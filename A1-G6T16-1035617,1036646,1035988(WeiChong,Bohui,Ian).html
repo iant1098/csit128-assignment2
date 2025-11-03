@@ -1,0 +1,441 @@
+<html>
+    <head>
+        <title>A1-G6T16-1035617,1036646,1035988(WeiChong,Bohui,Ian)</title>
+        <style>
+            /* Part 1 */
+            th {
+                background-color: #DEEAF6;
+                padding: 10;
+                font-size: larger;
+                align-items: center;
+            }
+            
+            table.firstPart td {
+                padding: 10;
+            }
+            
+            /* Part 2 */
+            img{
+                height: 10em;
+                width: 9.5em;
+            }
+
+            .image {
+                display: inline-block;
+                padding-bottom: 1em;
+            }
+            
+            .text {
+                display: inline-block;
+                vertical-align: top;
+            }
+
+            /* Part 4*/
+            p {font-weight: bold; font-size: large;}
+
+            table.HTML_Form {
+                border: 1px solid black;
+                border-collapse: collapse; /*remove double line border*/
+            }
+
+            table.HTML_Form td {padding:10px;}
+
+            table.HTML_Form tr:nth-child(4n) {border-bottom: 1px solid black;} /*adds a border every 4th row*/
+
+            .errorMessage {color: red;}
+
+            .input_text {width:220px;}
+        </style>
+        <!-- part 4  -->
+        <script>
+            function validateForm(){
+
+                /* form validation for name text field */
+                var name_ = document.getElementById("Name").value.trim();
+                var modCode = document.getElementById("ModuleCode").value.trim();
+
+                document.getElementById("nameError1").innerHTML = "";
+                document.getElementById("nameError2").innerHTML = "";
+                document.getElementById("modCodeError").innerHTML = "";
+
+                if(name_ == null || name_ == "")
+                {
+                    document.getElementById("nameError2").innerHTML="Invalid name. Field cannot be empty"
+                    isValid = false;
+                }
+
+                else if(/^[A-Za-z ]+$/.test(name_) == false)
+                {
+                    document.getElementById("nameError1").innerHTML="Invalid name. Only letters and spaces are allowed";
+                    isValid = false;
+                }
+                
+                if( modCode !== "" && /^[A-Z]{2}[4-8]{3}$/.test(modCode) == false)
+                {
+                    document.getElementById("modCodeError").innerHTML="Invalid module code. Format: 2 letters + 3 digits 4-8"
+                    isValid = false;
+                } 
+
+                return isValid;
+             }
+
+             function getcurrentDate() 
+             {
+                /*Create a new Date object*/
+                var today = new Date();
+
+                var day = today.getDate();
+                var year = today.getFullYear();
+                var hours = today.getHours();
+                var minutes= today.getMinutes();
+
+                var monthList = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+                var monthName = monthList[today.getMonth()];
+
+                var weekdayList = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                var weekday = weekdayList[today.getDay()];
+
+                var formatted_minutes = minutes < 10 ? "0" + minutes : minutes;
+                var ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12 || 12; /*convert 0 to 12 for midnight*/
+
+                /*Format the date into readable string*/
+                var formattedDate = day + " " +
+                monthName + " " + year + " " + weekday +" "+ hours +":"+ 
+                formatted_minutes +" "+ ampm
+                
+                document.getElementById("currentDate").defaultValue = formattedDate;
+             }
+
+             function findAndReplace() {
+                var findInput = document.getElementById("find");
+                var replaceInput = document.getElementById("replace");
+                var textArea = document.getElementById("comments");
+                var replaceResult = document.getElementById("replaceResult");
+                var findReplaceBtn = document.getElementById("findReplaceBtn");
+
+                /*When user types in the "find" box, enables "replace" box*/
+                findInput.addEventListener("input", function() 
+                {
+                    replaceInput.disabled = (findInput.value.trim() === "");
+                    if (replaceInput.disabled) {
+                        replaceInput.value = "";
+                        replaceResult.textContent = "";
+                    }  
+                });
+                /*Click event for Find & Replace button*/
+                findReplaceBtn.addEventListener("click", function() {
+                var findText = findInput.value.trim();
+                var replaceText = replaceInput.value;
+                var message = textArea.value;
+
+                if (findText === "") {
+                    return;
+                }
+
+                if (message.includes(findText)) {
+                    /*Replace all keywords using replaceAll*/
+                    var newMessage = message.replaceAll(findText, replaceText);
+
+                    /* Count replacements */
+                    var matchCount = (message.split(findText).length - 1);
+
+                    /* Update textarea and result message */
+                    textArea.value = newMessage;
+                    replaceResult.textContent = `${matchCount} replacement made.`;
+                } 
+                else 
+                {
+                    replaceResult.textContent = "No matches found.";
+                }
+                });
+            };
+
+            function translate() {
+                document.getElementById("Translate").addEventListener("click", function() {
+                    var sourceLang = document.querySelector('input[name="sourceLanguage"]:checked').value
+                    var targetLang = document.getElementById("targetLanguage").value;
+                    var message = document.getElementById("comments").value.trim();
+                    var encodedMessage = encodeURIComponent(message);
+                    var url = `https://translate.google.com/?sl=${sourceLang}&tl=${targetLang}&text=${encodedMessage}&op=translate`;
+                    window.open(url, "_blank");
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <!-- part 1 -->
+        <table class="firstPart" border="1" width="60%">
+            <tr>
+                <th colspan="3">CSIT128: Assignment 1</td>
+                <th>Group G6T16</td>
+            </tr>
+            <tr>
+                <td rowspan="3" width="20%">Student Number /<br>
+                    Name / Email</td>
+                <td>1035617</td>
+                <td width="33%">Chee wei Chong</td>
+                <td width="28%">wcchee001@mymail.sim.edu.sg</td>
+            </tr>
+            <tr>
+                <td>1036646</td>
+                <td>Lin Bohui</td>
+                <td>blin010@mymail.sim.edu.sg</td>
+            </tr>
+            <tr>
+                <td>1035988</td>
+                <td>Ian Tan Yi Cher</td>
+                <td>iyctan001@mymail.sim.edu.sg</td>
+            </tr>
+                
+        </table>
+        <!-- Part 2 -->
+        <div class="part2">
+            <h1>Part 2: Hello World program in different languages</h1>
+            <ul>
+                <li><a href="#C++">C++</a></li>
+                <li><a href="#C#">C#</a></li>
+                <li><a href="#Python">Python</a></li>
+                <li><a href="#HTML">HTML</a></li>
+            </ul>
+            <hr />
+            <div id="C++">
+            <h4>C++</h4>
+                <div class="image">
+                    <img src="CPP.png" alt="C++ logo">
+                </div>
+                <div class="text">
+<pre>
+  #include &lt;iostream&gt;
+
+  void main( ) {
+          cout &lt;&lt; "Hello World!" &lt;&lt; end1;
+  }
+</pre>
+                </div>
+            </div>
+            <hr />
+            <div id="C#">
+            <h4>C#</h4>
+                <div class="image">
+                    <img src="CS.png" alt="C sharp logo">
+                </div>
+                <div class="text">
+<pre>
+    using system;
+
+    class program
+    {
+            static void Main()
+            {
+                    Console.WriteLine("Hello,World!");
+            }
+    }
+</pre>
+                </div>
+            </div>
+            <hr />
+            <div id="Python">
+            <h4>Python</h4>
+                <div class="image">
+                    <img src="Python-Language.jpg" alt="Python logo">
+                </div>
+                <div class="text">
+<pre>
+    # Hello World program in Python
+
+    print("Hello World!")
+</pre>
+                </div>
+            </div>
+            <hr />
+            <div id="HTML">
+            <h4>HTML</h4>
+                <div class="image">
+                    <img src="HTML.png" alt="HTML logo">
+                </div>
+                <div class="text">
+<pre>
+    &lt;html&gt;
+    &lt;head&gt;
+    &lt;title&gt;Hello&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+    Hello World!
+    &lt;/body&gt;
+    &lt;/html&gt;
+</pre>
+                </div>
+            </div>
+            <br>
+        
+        <!-- Part 3 -->
+        <h1>Part 3:University policies and services</h1>
+        <dl>
+            <dt><b>PLAGIARISM</b></dt>
+                <dd>
+                    Plagiarism is treated seriously. If we suspect any work is copied, all students involved are likely to receive zero
+                    for the entire assignment. Plagiarism has led to students being expelled from the University.<br>
+                    Please click
+                     <a href="https://www.uow.edu.au/student/support-services/academic-skills/online-resources/referencing-and-citing/plagiarism/">here</a>
+                     to read more about Plagiarism.
+                </dd>
+            <br>
+            <dt><b>ACADEMIC CONSIDERATION</b></dt>
+                <dd>
+                    We know that life isn't perfect and there may be a time when you can't hand in an assignment on time, or make it
+                    to class or an exam. If you find youself in a situation like this, you may be eligible for Academic Consideration.
+                    Academic Consideration is designed to help students when they are sick, injured, or where a serious, unplanned
+                    situation has occurred that has affected their ability to study.<br>
+                    Please click <a href="https://www.uow.edu.au/student/admin/academic-consideration/">here</a> to read more about Academic Consideration.
+                </dd>    
+            <br>
+            <dt><b>STUDENT SUPPORT ADVISERS</b></dt>
+                <dd>
+                    If you have an issue or a problem that is affecting your study, then the Student Support Advisers may be able to
+                    help. There are Student Support Advisers available to assist students who are studying at all UOW Campuses and
+                    in all UOW Faculties.<br>
+                    Please click <a href="https://www.uow.edu.au/student/support-services/">here</a> to read more about Student Support Advisers.<br>
+                    <br>
+                    Student Support Adviser contact details for Faculty of Engineering and Information Sciences:
+                </dd> 
+                <dd>
+                    <table border="1">
+                        <td>
+                            <b>Ann-maree Smith</b><br>
+                            Bld 40:133, Wollongong<br>
+                            Campus<br>
+                            (02) 4221 4714<br>
+                            Mon-Fri<br>
+                            ams@uow.edu.au<br>
+                        </td>
+                        <td>
+                            <b>Mitz Perez</b><br>
+                            Bld 4:105, Wollongong<br>
+                            Campus<br>
+                            (02) 4221 3833<br>
+                            Mon-Fri<br>
+                            mperez@uow.edu.au<br>
+                        </td>
+                    </table>
+                </dd>
+            <br>
+            <dt><b>DISABILITY SERVICES</b></dt>
+            <dd> 
+                Disability Services provide advice and support for students with a disability or health condition. Our aim
+                is to ensure students with a disability realise their full academic potential. We also provide support for those who are
+                the primary carers for those with a medical condition or disability.<br>
+                Please click <a href="https://www.uow.edu.au/business-law/about/equity-diversity-inclusion/disability-resources/">here</a> to
+                read more about Disability Services.   
+            </dd> 
+            <br>
+        
+        <!-- Part 4 -->
+        <form onsubmit="return validateForm()">
+                <table class="HTML_Form">
+                    <tr>
+                        <td colspan="2">
+                            <p>Part 4:</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="Name">Name:</label><br>
+                        </td>
+                        <td>
+                            <input type="text" name="Name" id="Name" class="input_text">
+                            <span id="nameError1" class="errorMessage"></span>
+                            <span id="nameError2" class="errorMessage"></span>
+                        </td>
+                    </tr> 
+                    
+                    <tr>
+                        <td>
+                            <label for="moduleCode">Module Code:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="ModuleCode" id="ModuleCode" class="input_text">
+                            <span id="modCodeError" class="errorMessage"></span>
+                            <br />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="currentDate">Current Date:</label>
+                        </td>
+                        <td>
+                            <input type="text" id="currentDate" readonly class="input_text">
+                            <script>
+                                getcurrentDate()
+                            </script>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="message">Message:</label>
+                        </td>
+
+                        <td>
+                            <textarea name="comments" id="comments" rows="3" cols="20">Hello 202509</textarea>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="find">Find:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="find" id="find">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="replace">Replace:</label>
+                        </td>
+                        <td>
+                            <input type="text" name="replace" id="replace" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button id="findReplaceBtn">Find & Replace</button>
+                            <span id="replaceResult" class="errorMessage"></span>
+                            <script>findAndReplace();</script>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="sourceLanguage">Source Language:</label>
+                        </td>
+                        <td>
+                            <input type="radio" name="sourceLanguage" value="en" checked>English
+                            <input type="radio" name="sourceLanguage" value="ms">Malay
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="targetLanguage">Target Language:</label>
+                        </td>
+                        <td>
+                            <select id="targetLanguage">
+                                <option value="zh-CN" selected>Chinese</option>
+                                <option value="ko">Korean</option>
+                                <option value="ja">Japanese</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="submit" id="Translate" value="Translate">
+                            <input type="reset" value="reset">
+                            <script>translate();</script>
+                        </td>
+                    </tr>
+                </table>
+        </form>
+    </body>
+</html>
