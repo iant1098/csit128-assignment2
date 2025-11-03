@@ -1,4 +1,54 @@
-<?xml version="1.0" ?>
-<xsd=schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-<b>
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
+    <xsd:element name="forecast">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="weather" minOccurs="0" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="year" type="xsd:integer" />
+                            <xsd:element name="month">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:integer">
+                                        <xsd:minInclusive value="1" />
+                                        <xsd:maxInclusive value="12" />
+                                    </xsd:restriction>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="date">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:integer">
+                                        <xsd:minInclusive value="1" />
+                                        <xsd:maxInclusive value="31" />
+                                    </xsd:restriction>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="dayOfWeek">
+                                <xsd:simpleType>
+                                    <xsd:restriction base="xsd:string">
+                                        <xsd:enumeration value="Mon" />
+                                        <xsd:enumeration value="Tue" />
+                                        <xsd:enumeration value="Wed" />
+                                        <xsd:enumeration value="Thur" />
+                                        <xsd:enumeration value="Fri" />
+                                        <xsd:enumeration value="Sat" />
+                                        <xsd:enumeration value="Sun" />
+                                    </xsd:restriction>
+                                </xsd:simpleType>
+                            </xsd:element>
+                            <xsd:element name="overall" type="xsd:string" />
+                            <xsd:element name="overallCode" type="xsd:string" />
+                            <xsd:element name="highest" type="xsd:integer" />
+                            <xsd:element name="lowest" type="xsd:integer" />
+                        </xsd:sequence>
+                        <xsd:attribute name="yyyymmdd" type="xsd:string" />
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:sequence>
+            <xsd:attribute name="queryTime" type="xsd:string" />
+            <xsd:attribute name="queryLocation" type="xsd:string" />
+        </xsd:complexType>
+    </xsd:element>
+
+</xsd:schema>

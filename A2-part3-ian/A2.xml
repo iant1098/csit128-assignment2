@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <?xml-stylesheet type="text/xsl" href="S2.xsl"?>
 <forecast queryTime="13/10/2025 4:30PM" queryLocation="Singapore"
-xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="S2.xsd">
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="S2.xsd">
   <weather yyyymmdd="20250530">
     <year>2025</year>	
     <month>5</month>
